@@ -1,9 +1,9 @@
 package com.ardent.spring.core;
 
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-import com.ardent.spring.core.model.Car;
+import com.ardent.spring.core.config.AppConfiguration;
 import com.ardent.spring.core.model.TataMotors;
 
 /**
@@ -12,9 +12,10 @@ import com.ardent.spring.core.model.TataMotors;
  */
 public class App {
 	public static void main(String[] args) {
-		ApplicationContext context = new ClassPathXmlApplicationContext("beans.xml");
+		ApplicationContext context = new AnnotationConfigApplicationContext(AppConfiguration.class);// new
+		// ClassPathXmlApplicationContext("beans.xml");
 		System.out.println("Config loaded ..");
-		Car c = context.getBean("tata", TataMotors.class);
-		System.out.println(c);
+		TataMotors c = context.getBean("tata", TataMotors.class);
+		c.start();
 	}
 }
