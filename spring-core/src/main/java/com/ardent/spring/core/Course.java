@@ -12,6 +12,7 @@ public class Course {
 
 	public Course(String courseName, int courseId) {
 		super();
+		System.out.println("Course created");
 		this.courseName = courseName;
 		this.courseId = courseId;
 	}
