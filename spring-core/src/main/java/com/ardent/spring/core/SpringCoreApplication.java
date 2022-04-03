@@ -7,6 +7,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 public class SpringCoreApplication {
 
 	public static void main(String[] args) {
+		System.out.println("comment for sourav");
 		//SpringApplication.run(SpringCoreApplication.class, args);
 		ApplicationContext context =  new ClassPathXmlApplicationContext("beans.xml");
 		//new AnnotationConfigApplicationContext(AppConfiguration.class);// new
