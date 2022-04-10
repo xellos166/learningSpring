@@ -9,13 +9,17 @@
     http://www.springframework.org/schema/mvc
     http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 	<!-- Student bean -->
-	<bean id="student" class="com.myexamp.examp.Student" scope="prototype">
-		<constructor-arg name="name" value="Soumya" />
+	<bean id="student" class="com.myexamp.examp.Student" scope="singleton" lazy-init="false">
+	<!-- Singleton,prototype,session,request,application -->
+		<!-- <constructor-arg name="name" value="Soumya" />
 		<constructor-arg name="roll" value="100" type="int" />
-		<constructor-arg name="addr" ref="address"/>
+		<constructor-arg name="addr" ref="address"/> -->
+		<property name="name" value="Sourav"/>
+		<property name="roll" value="100"/>
+		<property name="addr" ref="address"/>
 	</bean>
 	<!-- address object with values -->
-	<bean id="address" class="com.myexamp.examp.Address">
+	<bean id="address" class="com.myexamp.examp.Address" lazy-init="true">
 		<constructor-arg name="city"  value="Bengaluru" />
 		<constructor-arg name="street" value="kundalahalli" />
 	</bean>
