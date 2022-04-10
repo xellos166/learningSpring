@@ -8,7 +8,10 @@ import com.myexamp.examp.config.BeansConfig;
 public class ExampApplication {
 
 	public static void main(String[] args) {
+		//Applicable for java configuration
 		ApplicationContext context = new AnnotationConfigApplicationContext(BeansConfig.class);
+		
+		//Applicable for xml configuration
 		// new ClassPathXmlApplicationContext("beans.xml");
 		System.out.println("CONTEXT LOADED...");
 
