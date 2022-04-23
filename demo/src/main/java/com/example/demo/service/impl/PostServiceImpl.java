@@ -10,18 +10,18 @@ import com.example.demo.model.Post;
 import com.example.demo.service.PostService;
 
 @Service
-public class PostServiceImpl implements PostService{
-	
+public class PostServiceImpl implements PostService {
+
 	private static List<Post> postStore;
-	private static int id=0;
+	private static int id = 0;
 	static {
-		postStore=new ArrayList<Post>();
+		postStore = new ArrayList<Post>();
 	}
 
 	@Override
 	public String sayHello() {
-		
-		return "Hello !!! "+new Date();
+
+		return "Hello !!! " + new Date();
 	}
 
 	@Override
@@ -29,6 +29,12 @@ public class PostServiceImpl implements PostService{
 		post.setId(++id);
 		postStore.add(post);
 		return post;
+	}
+
+	@Override
+	public List<Post> getAll() {
+		// TODO Auto-generated method stub
+		return postStore;
 	}
 
 }

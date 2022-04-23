@@ -1,5 +1,7 @@
 package com.example.demo.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,6 +38,11 @@ public class PostController {
 	@PostMapping(path = "/post")
 	public Post craetePost(@RequestBody Post post) {
 		return postserice.createpost(post);
+	}
+
+	@GetMapping("/posts")
+	public List<Post> getPosts() {
+		return postserice.getAll();
 	}
 
 }
