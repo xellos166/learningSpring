@@ -9,16 +9,16 @@ import com.myexamp.examp.Student;
 
 @Configuration
 public class BeansConfig {
-	
+
 	@Bean
 	public Address getAddress() {
-		Address a= new Address("Bengaluru", "AECS Layout");
+		Address a = new Address("Bengaluru", "AECS Layout");
 		return a;
 	}
-	
-	@Bean
-	@Scope(scopeName ="singleton")
-	public Student student() {
+
+	@Bean(name = "student")
+	@Scope(scopeName = "singleton")
+	public Student getStudent() {
 		return new Student(100, "Jerry", getAddress());
 	}
 
