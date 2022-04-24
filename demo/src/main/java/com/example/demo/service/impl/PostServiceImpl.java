@@ -4,13 +4,19 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.Post;
+import com.example.demo.model.entity.PostEntity;
+import com.example.demo.repository.PostRepository;
 import com.example.demo.service.PostService;
 
 @Service
 public class PostServiceImpl implements PostService {
+
+	@Autowired
+	private PostRepository postRepository;
 
 	private static List<Post> postStore;
 	private static int id = 0;
@@ -26,15 +32,31 @@ public class PostServiceImpl implements PostService {
 
 	@Override
 	public Post createpost(Post post) {
-		post.setId(++id);
-		postStore.add(post);
+		/*
+		 * post.setId(++id); postStore.add(post);
+		 */
+
+		// DTO to entity conversion
+		PostEntity postEntity = PostEntity.builder().author(post.getAuthor()).postText(post.getPostText())
+				.reaction(post.getReaction()).createdDate(new java.sql.Date(System.currentTimeMillis())).build();
+		postEntity = postRepository.save(postEntity);
+
+		post.setId(postEntity.getId());
 		return post;
+	}
+
+	private Post getPost(PostEntity entity) {
+		return Post.builder().author(entity.getAuthor()).postText(entity.getPostText()).reaction(entity.getReaction())
+				.id(entity.getId()).build();
 	}
 
 	@Override
 	public List<Post> getAll() {
 		// TODO Auto-generated method stub
-		return postStore;
+		// return postStore;
+		List<Post> result = new ArrayList<Post>();
+		postRepository.findAll().forEach(x -> result.add(getPost(x)));
+		return result;
 	}
 
 	@Override
