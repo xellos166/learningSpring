@@ -12,4 +12,8 @@ public interface PostService {
 
 	public List<Post> getAll();
 
+	public Post getPostById(int id);
+
+	public List<Post> getPostByAuthorAndReaction(String author, String reaction);
+
 }
