@@ -16,7 +16,10 @@ import com.example.demo.model.Post;
 import com.example.demo.model.response.ApiResponse;
 import com.example.demo.service.PostService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @RestController
+@Slf4j
 public class PostController {
 
 	@Autowired
@@ -94,7 +97,7 @@ public class PostController {
 	 * ALL DATA WE ARE PASS BY ResponseEntity TO THE CLIENT
 	 */
 	@GetMapping("/post/{id}")
-	public ResponseEntity<ApiResponse> getPostById(@PathVariable(name = "id") int id) {
+	public ResponseEntity<ApiResponse> getPostById(@PathVariable(name = "id") long id) {
 		ApiResponse result = new ApiResponse("OK", true, postserice.getPostById(id), null);
 		/*
 		 * ApiResponse.builder().success(true).error(null).data(postserice.getPostById(
@@ -143,6 +146,15 @@ public class PostController {
 			@RequestParam(name = "id", required = true, defaultValue = "0") int id) {
 		ApiResponse response = ApiResponse.builder().success(true).error(null).data(postserice.getPostById(id))
 				.msg("SUCCESS").build();
+		log.debug("getPostByKey called with id: {0}", id);
+		return new ResponseEntity<ApiResponse>(response, HttpStatus.OK);
+	}
+
+	@GetMapping("/postcomments/{postId}")
+	public ResponseEntity<ApiResponse> getComment(@PathVariable(name = "postId") Long postId) {
+		log.debug("get comment callled with {0}", postId);
+		ApiResponse response = ApiResponse.builder().success(true).error(null)
+				.data(postserice.getCommentsFoAPost(postId)).msg("SUCCESS").build();
 		return new ResponseEntity<ApiResponse>(response, HttpStatus.OK);
 	}
 
