@@ -9,7 +9,7 @@
     http://www.springframework.org/schema/mvc
     http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 	<!-- Student bean -->
-	<bean id="student" class="com.ardent.spring.core.Student" scope="prototype" lazy-init="true">
+	<bean id="student" class="com.ardent.spring.core.Student" scope="singleton" lazy-init="false">
 		<constructor-arg name="studentName" value="Soumya" />
 		<constructor-arg name="roll" value="100" type="int" />
 		

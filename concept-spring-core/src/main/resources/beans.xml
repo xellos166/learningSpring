@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    http://www.springframework.org/schema/beans/spring-beans.xsd 
+    http://www.springframework.org/schema/context 
+    http://www.springframework.org/schema/context/spring-context.xsd
+    http://www.springframework.org/schema/mvc
+    http://www.springframework.org/schema/mvc/spring-mvc.xsd">
+	<bean id="valve" class="com.ardent.spring.core.beans.Valve">
+		<constructor-arg name="diameter" value="100"  />
+		<constructor-arg name="metal" value="brass" />
+	</bean>
+	<bean id="car" class="com.ardent.spring.core.beans.Car">
+		<!-- <property name="modelname" value="Tata nixon" /> <property name="color" 
+			value="red" /> <property name="engine" ref="engine" /> -->
+		<constructor-arg name="modelname" value="Tata nixon" />
+		<constructor-arg name="color" value="red" />
+		<constructor-arg name="engine" ref="engine" />
+
+
+	</bean>
+	<bean id="engine" class="com.ardent.spring.core.beans.Engine"
+		lazy-init="true" scope="prototype">
+		<constructor-arg name="engineType" value="petrol" />
+		<constructor-arg name="enginePower" value="1500cc" />
+		<constructor-arg name="valve" ref="valve" />
+	</bean>
+
+</beans>
