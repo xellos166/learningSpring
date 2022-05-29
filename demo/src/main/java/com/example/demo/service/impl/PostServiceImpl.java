@@ -3,20 +3,26 @@ package com.example.demo.service.impl;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.model.Post;
+import com.example.demo.model.dto.PostCommentDTO;
 import com.example.demo.model.entity.PostEntity;
+import com.example.demo.model.response.PostCommentResponse;
+import com.example.demo.repository.CommentRepository;
 import com.example.demo.repository.PostRepository;
 import com.example.demo.service.PostService;
 
+import lombok.RequiredArgsConstructor;
+
 @Service
+@RequiredArgsConstructor
 public class PostServiceImpl implements PostService {
 
-	@Autowired
-	private PostRepository postRepository;
+	private final PostRepository postRepository;
+	private final CommentRepository commentRepo;
 
 	private static List<Post> postStore;
 	private static int id = 0;
@@ -60,31 +66,49 @@ public class PostServiceImpl implements PostService {
 	}
 
 	@Override
-	public Post getPostById(int id) {
+	public Post getPostById(long id) {
 		// TODO Auto-generated method stub
-		for (Post p : postStore) {
-			if (p.getId() == id) {
-				return p;
-			}
-		}
-		return null;
+		/*
+		 * for (Post p : postStore) { if (p.getId() == id) { return p; } }
+		 */
+		Optional<PostEntity> pe = postRepository.findById(id);
+		return getPost(pe.get());
 		// return postStore.stream().filter(p -> p.getId() == id).findFirst().get();
 	}
 
 	@Override
 	public List<Post> getPostByAuthorAndReaction(String author, String reaction) {
-		List<Post> l = new ArrayList<Post>();
-		for (Post p : postStore) {
-			if (p.getAuthor().equalsIgnoreCase(author) && p.getReaction().equalsIgnoreCase(reaction)) {
-				l.add(p);
-			}
-		}
-		return l;
+		/*
+		 * List<Post> l = new ArrayList<Post>(); for (Post p : postStore) { if
+		 * (p.getAuthor().equalsIgnoreCase(author) &&
+		 * p.getReaction().equalsIgnoreCase(reaction)) { l.add(p); } } return l;
+		 */
 
+		List<PostEntity> postEntityList = postRepository.findAllByAuthorAndReaction(author, reaction);
+		List<Post> listOfPost = new ArrayList<>();
+		for (PostEntity p : postEntityList) {
+			listOfPost.add(getPost(p));
+		}
+		return listOfPost;
 		/*
 		 * return postStore.stream() .filter(p -> p.getAuthor().equalsIgnoreCase(author)
 		 * && p.getReaction().equalsIgnoreCase(reaction)) .collect(Collectors.toList());
 		 */
+	}
+
+	private PostCommentResponse getPostResponse(PostCommentDTO pdto) {
+		return PostCommentResponse.builder().author(pdto.getPostAuthor()).postId(pdto.getPostId())
+				.commentId(pdto.getCommentId()).commentText(pdto.getComment()).reaction(pdto.getPostReaction()).build();
+	}
+
+	@Override
+	public List<PostCommentResponse> getCommentsFoAPost(Long postId) {
+		List<PostCommentResponse> postCommentResponse = new ArrayList<>();
+		List<PostCommentDTO> dto = commentRepo.getCommentForAPost(postId);
+		for (PostCommentDTO p : dto) {
+			postCommentResponse.add(getPostResponse(p));
+		}
+		return postCommentResponse;
 	}
 
 }

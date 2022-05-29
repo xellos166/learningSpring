@@ -32,12 +32,12 @@ public class PostEntity implements Serializable {
 	@Column(name = "AUTHOR")
 	private String author;
 
-	@Column(name = "POST_TEXT")
+	@Column(name = "POST_TXT")
 	private String postText;
 
 	@Column(name = "REACTION")
 	private String reaction;
 
-	@Column(name = "CREATED_DATE")
+	@Column(name = "DATE")
 	private Date createdDate;
 }
