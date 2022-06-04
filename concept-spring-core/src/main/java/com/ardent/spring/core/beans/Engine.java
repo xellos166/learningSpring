@@ -1,9 +1,22 @@
 package com.ardent.spring.core.beans;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+
 public class Engine {
 	private String engineType;
 	private String enginePower;
 	private Valve valve;
+
+	@PostConstruct
+	public void afterInit() {
+		System.out.println("the Engie bean is just being created.....***");
+	}
+
+	@PreDestroy
+	public void beforeDestroy() {
+		System.out.println("Engine bean is going to be destryed....");
+	}
 
 	public Engine(String engineType, String enginePower, Valve valve) {
 		this.engineType = engineType;

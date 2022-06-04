@@ -1,6 +1,9 @@
 package com.ardent.spring.core.beans;
 
-public class Valve {
+import org.springframework.beans.factory.DisposableBean;
+import org.springframework.beans.factory.InitializingBean;
+
+public class Valve implements InitializingBean, DisposableBean {
 
 	private Integer diameter;
 	private String metal;
@@ -35,6 +38,18 @@ public class Valve {
 	@Override
 	public String toString() {
 		return "Valve [diameter=" + diameter + ", metal=" + metal + "]";
+	}
+
+	@Override
+	public void destroy() throws Exception {
+		System.out.println("this bean is going to be destroyed");
+
+	}
+
+	@Override
+	public void afterPropertiesSet() throws Exception {
+		System.out.println("This bean has just been initialized ...");
+
 	}
 
 }
