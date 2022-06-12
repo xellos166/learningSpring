@@ -2,10 +2,12 @@ package com.ardent.spring.boot.controller;
 
 import java.util.List;
 
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ardent.spring.boot.model.Post;
@@ -43,5 +45,10 @@ public class PostController {
 	@GetMapping("api/v1/post/{id}")
 	public Post getPostById(@PathVariable(name = "id", required = true) Integer id) {
 		return postService.findPostById(id);
+	}
+
+	@DeleteMapping("api/v1/post")
+	public Post deletePostById(@RequestParam(name = "id", required = true) Integer id) {
+		return postService.deletePostById(id);
 	}
 }
