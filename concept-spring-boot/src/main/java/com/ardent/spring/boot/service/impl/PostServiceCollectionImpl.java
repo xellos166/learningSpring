@@ -65,4 +65,16 @@ public class PostServiceCollectionImpl implements PostService {
 		return result;
 	}
 
+	@Override
+	public Post editById(Integer id, Post post) {
+		Post result = null;
+		// using stream and lambda expression
+		Optional<Post> resultOpt = postStorage.stream().filter(p -> p.getId().equals(id)).findFirst();
+		if (resultOpt.isPresent()) {
+			result = resultOpt.get();
+		}
+		result.setPostText(post.getPostText());
+		return result;
+	}
+
 }
