@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+
 public class Post implements Serializable {
 
 	private static final long serialVersionUID = 6663058415906897718L;

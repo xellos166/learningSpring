@@ -2,6 +2,7 @@ package com.ardent.spring.boot.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -18,9 +19,11 @@ import com.ardent.spring.boot.model.response.CustomResponse;
 import com.ardent.spring.boot.service.PostService;
 
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequiredArgsConstructor
+@Slf4j
 public class PostController {
 
 	// Old style
@@ -29,6 +32,9 @@ public class PostController {
 
 	private final PostService postService;
 
+	@Value("${client.name}")
+	private String customValue;
+
 	// Equivalant code of RequiredArgsConstructor
 	/*
 	 * public PostController(PostService p) {
@@ -36,8 +42,13 @@ public class PostController {
 	 * this.postService = p; }
 	 */
 
-	@PostMapping("api/v1/post")
+	@PostMapping(path = "api/v1/post", produces = { "application/json", "application/xml" })
 	public ResponseEntity<CustomResponse> addPost(@RequestBody Post post) {
+		// log.trace("A TRACE Message");
+		// log.debug("A DEBUG Message");
+		log.info("method addPost called with " + customValue);
+		// log.warn("A WARN Message");
+		// log.error("An ERROR Message");
 		Post savedPost = postService.savePost(post);
 		return new ResponseEntity<CustomResponse>(new CustomResponse(savedPost, "Post created sucsessfuly"),
 				HttpStatus.CREATED);
