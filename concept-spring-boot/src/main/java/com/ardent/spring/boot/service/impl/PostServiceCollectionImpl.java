@@ -8,7 +8,9 @@ import java.util.Optional;
 import org.springframework.stereotype.Service;
 
 import com.ardent.spring.boot.model.Post;
+import com.ardent.spring.boot.model.request.PostRequest;
 import com.ardent.spring.boot.service.PostService;
+import com.ardent.spring.boot.util.PostUtil;
 
 @Service
 public class PostServiceCollectionImpl implements PostService {
@@ -20,7 +22,8 @@ public class PostServiceCollectionImpl implements PostService {
 	}
 
 	@Override
-	public Post savePost(Post post) {
+	public Post savePost(PostRequest postRequest) {
+		Post post = PostUtil.getPostFromPostRequest(postRequest);
 		post.setId(++i);
 		post.setDate(new Date(System.currentTimeMillis()));
 		postStorage.add(post);
@@ -66,7 +69,7 @@ public class PostServiceCollectionImpl implements PostService {
 	}
 
 	@Override
-	public Post editById(Integer id, Post post) {
+	public Post editById(Integer id, PostRequest post) {
 		Post result = null;
 		// using stream and lambda expression
 		Optional<Post> resultOpt = postStorage.stream().filter(p -> p.getId().equals(id)).findFirst();

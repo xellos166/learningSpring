@@ -3,6 +3,7 @@ package com.ardent.spring.boot.service;
 import java.util.List;
 
 import com.ardent.spring.boot.model.Post;
+import com.ardent.spring.boot.model.request.PostRequest;
 
 public interface PostService {
 
@@ -12,7 +13,7 @@ public interface PostService {
 	 * @param post
 	 * @return
 	 */
-	public Post savePost(Post post);
+	public Post savePost(PostRequest post);
 
 	public Post findPostById(Integer id);
 
@@ -20,5 +21,5 @@ public interface PostService {
 
 	public Post deletePostById(Integer id);
 
-	public Post editById(Integer id, Post post);
+	public Post editById(Integer id, PostRequest post);
 }

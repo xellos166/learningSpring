@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ardent.spring.boot.model.Post;
+import com.ardent.spring.boot.model.request.PostRequest;
 import com.ardent.spring.boot.model.response.CustomResponse;
 import com.ardent.spring.boot.service.PostService;
 
@@ -43,7 +44,7 @@ public class PostController {
 	 */
 
 	@PostMapping(path = "api/v1/post", produces = { "application/json", "application/xml" })
-	public ResponseEntity<CustomResponse> addPost(@RequestBody Post post) {
+	public ResponseEntity<CustomResponse> addPost(@RequestBody PostRequest post) {
 		// log.trace("A TRACE Message");
 		// log.debug("A DEBUG Message");
 		log.info("method addPost called with " + customValue);
@@ -76,7 +77,7 @@ public class PostController {
 	}
 
 	@PutMapping("api/v1/post/{id}")
-	public Post getPostById(@PathVariable(name = "id", required = true) Integer id, @RequestBody Post post) {
+	public Post getPostById(@PathVariable(name = "id", required = true) Integer id, @RequestBody PostRequest post) {
 		return postService.editById(id, post);
 	}
 }
