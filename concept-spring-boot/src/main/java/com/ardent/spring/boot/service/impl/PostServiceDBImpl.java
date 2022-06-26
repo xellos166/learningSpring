@@ -1,5 +1,6 @@
 package com.ardent.spring.boot.service.impl;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -26,8 +27,9 @@ public class PostServiceDBImpl implements PostService {
 	@Override
 	@Transactional
 	public Post savePost(PostRequest post) {
-
-		return postRepository.save(PostUtil.getPostFromPostRequest(post));
+		Post p = PostUtil.getPostFromPostRequest(post);
+		p.setDate(new Date(System.currentTimeMillis()));
+		return postRepository.save(p);
 	}
 
 	@Override
@@ -74,6 +76,12 @@ public class PostServiceDBImpl implements PostService {
 			}
 		}
 		return postRepository.save(updatedPost);
+	}
+
+	@Override
+	public List<Post> findAllPostAuthorName(String name) {
+
+		return postRepository.findAllByAuthor(name);
 	}
 
 }

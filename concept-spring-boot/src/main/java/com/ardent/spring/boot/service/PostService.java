@@ -22,4 +22,6 @@ public interface PostService {
 	public Post deletePostById(Integer id);
 
 	public Post editById(Integer id, PostRequest post);
+
+	public List<Post> findAllPostAuthorName(String name);
 }

@@ -80,4 +80,13 @@ public class PostController {
 	public Post getPostById(@PathVariable(name = "id", required = true) Integer id, @RequestBody PostRequest post) {
 		return postService.editById(id, post);
 	}
+
+	@GetMapping("api/v1/post/name/{name}")
+	public ResponseEntity<CustomResponse> getPostByAuthorName(
+			@PathVariable(name = "name", required = true) String name) {
+		return new ResponseEntity<CustomResponse>(
+				new CustomResponse(postService.findAllPostAuthorName(name), "Post fetched successfully"),
+				HttpStatus.OK);
+
+	}
 }

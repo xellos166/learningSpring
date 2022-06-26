@@ -80,4 +80,10 @@ public class PostServiceCollectionImpl implements PostService {
 		return result;
 	}
 
+	@Override
+	public List<Post> findAllPostAuthorName(String name) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

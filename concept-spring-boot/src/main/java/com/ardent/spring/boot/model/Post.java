@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -40,6 +42,7 @@ public class Post implements Serializable {
 	private String reaction;
 
 	@Column(name = "CREATED_DATE")
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 	private Date date;
 
 }
