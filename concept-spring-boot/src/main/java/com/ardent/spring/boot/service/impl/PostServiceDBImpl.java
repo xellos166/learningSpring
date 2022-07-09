@@ -81,7 +81,8 @@ public class PostServiceDBImpl implements PostService {
 	@Override
 	public List<Post> findAllPostAuthorName(String name) {
 
-		return postRepository.findAllByAuthor(name);
+		// return postRepository.findAllByAuthor(name);
+		return postRepository.findAllByAuthorJpql(name);
 	}
 
 }
