@@ -9,10 +9,14 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class CustomResponse implements Serializable {
+public class ApiError implements Serializable {
+	/**
+	* 
+	*/
+	private static final long serialVersionUID = -6171756965033551016L;
 
-	private static final long serialVersionUID = 287204135509699212L;
-	private Object data;
 	private String message;
-	private ApiError error;
+
+	private String errorCode;
+
 }

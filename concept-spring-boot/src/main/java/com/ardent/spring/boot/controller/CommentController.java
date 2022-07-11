@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ardent.spring.boot.model.Comment;
@@ -26,10 +27,25 @@ public class CommentController {
 	private final CommentService commentService;
 
 	@PostMapping("api/v1/comment")
-	public ResponseEntity<CustomResponse> addPost(@RequestBody Comment comment) {
+	public ResponseEntity<CustomResponse> addPost(@RequestBody Comment comment,
+			@RequestParam(name = "version") String version) {
+
+		if (version != null && version.equals("v2")) {
+			comment.setCommentText("faceBook comment :" + comment.getCommentText());
+
+		}
+		Comment savedComment = commentService.saveComment(comment);
+		return new ResponseEntity<CustomResponse>(new CustomResponse(savedComment, "Comment created sucsessfuly", null),
+				HttpStatus.CREATED);
+	}
+
+	@PostMapping("api/v2/comment")
+	public ResponseEntity<CustomResponse> addPostv2(@RequestBody Comment comment) {
+
+		comment.setCommentText("faceBook comment :" + comment.getCommentText());
 
 		Comment savedComment = commentService.saveComment(comment);
-		return new ResponseEntity<CustomResponse>(new CustomResponse(savedComment, "Comment created sucsessfuly"),
+		return new ResponseEntity<CustomResponse>(new CustomResponse(savedComment, "Comment created sucsessfuly", null),
 				HttpStatus.CREATED);
 	}
 
@@ -42,7 +58,8 @@ public class CommentController {
 	public ResponseEntity<CustomResponse> getPostById(@PathVariable(name = "id", required = true) Integer id) {
 		List<PostComents> comments = commentService.findAllCommentByPostId(id);
 		return new ResponseEntity<CustomResponse>(
-				new CustomResponse(comments, "Comments for post id" + id + " fetched sucsessfuly"), HttpStatus.OK);
+				new CustomResponse(comments, "Comments for post id" + id + " fetched sucsessfuly", null),
+				HttpStatus.OK);
 	}
 
 }
