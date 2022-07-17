@@ -16,6 +16,7 @@ import com.ardent.spring.boot.model.dto.PostComents;
 import com.ardent.spring.boot.model.response.CustomResponse;
 import com.ardent.spring.boot.service.CommentService;
 
+import io.swagger.v3.oas.annotations.Operation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -26,6 +27,7 @@ public class CommentController {
 
 	private final CommentService commentService;
 
+	@Operation(summary = "This Metod will add a post")
 	@PostMapping("api/v1/comment")
 	public ResponseEntity<CustomResponse> addPost(@RequestBody Comment comment,
 			@RequestParam(name = "version") String version) {
