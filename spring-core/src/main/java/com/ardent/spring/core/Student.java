@@ -8,25 +8,24 @@ public class Student {
 
 	private String studentName;
 	private int roll;
-	//dependency
+	// dependency
 	private Course course;
 
 	public Student(String studentName, int roll, Course course) {
 		super();
-		System.out.println("3 arg constructor called");
+		System.out.println("3 arg constructor called for student");
 		this.studentName = studentName;
 		this.roll = roll;
 		this.course = course;
 	}
-	
+
 	public Student(String studentName, int roll) {
 		super();
 		System.out.println("2 arg constructor called");
 		this.studentName = studentName;
 		this.roll = roll;
-		
-	}
 
+	}
 
 	public Student() {
 		System.out.println("0 arg constructor called");
@@ -50,12 +49,10 @@ public class Student {
 	}
 
 	public Course getCourse() {
-		
 		return course;
 	}
 
 	public void setCourse(Course course) {
-		System.out.println("setCourse called");
 		this.course = course;
 	}
 

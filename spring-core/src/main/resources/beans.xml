@@ -9,15 +9,17 @@
     http://www.springframework.org/schema/mvc
     http://www.springframework.org/schema/mvc/spring-mvc.xsd">
 	<!-- Student bean -->
-	<bean id="student" class="com.ardent.spring.core.Student" scope="singleton" lazy-init="false">
+	<bean id="student" class="com.ardent.spring.core.Student" scope="prototype" lazy-init="true">
 		<constructor-arg name="studentName" value="Soumya" />
 		<constructor-arg name="roll" value="100" type="int" />
+		<!-- Constructor injection -->
+		<constructor-arg name="course" ref="course" />
 		
 		<!--  Setter injection -->
-		 <property name="course" ref="course"/>
+		 <!-- <property name="course" ref="course"/> -->
 	</bean>
 	<!-- course object with values -->
-	<bean id="course" class="com.ardent.spring.core.Course">
+	<bean id="course" class="com.ardent.spring.core.Course" lazy-init="true">
 		<constructor-arg name="courseName"  value="Spring Boot" />
 		<constructor-arg name="courseId" value="101" type="int" />
 	</bean>

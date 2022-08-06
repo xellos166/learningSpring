@@ -12,7 +12,7 @@ public class Course {
 
 	public Course(String courseName, int courseId) {
 		super();
-		System.out.println("Course created");
+		System.out.println("Course created by 2 areg constructor");
 		this.courseName = courseName;
 		this.courseId = courseId;
 	}
@@ -37,5 +37,4 @@ public class Course {
 		this.courseId = courseId;
 	}
 
-	
 }
